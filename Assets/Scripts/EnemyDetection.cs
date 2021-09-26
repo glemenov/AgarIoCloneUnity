@@ -36,14 +36,29 @@ public class EnemyDetection : MonoBehaviour
                 enemyRef.currentState = EnemyBehaviour.enemyState.Flee;
             }
         }
+
+        if (collision.transform.tag == "Enemy")
+        {
+            enemyRef.target = collision.gameObject;
+
+            // If enemy score is bigger - Chase
+            if (enemyRef.score > collision.gameObject.GetComponent<EnemyBehaviour>().score)
+            {
+                enemyRef.currentState = EnemyBehaviour.enemyState.Chase;
+
+            }
+            else if (enemyRef.score < collision.gameObject.GetComponent<EnemyBehaviour>().score)
+            {
+                // Or flee, if otherwise
+                enemyRef.currentState = EnemyBehaviour.enemyState.Flee;
+            }
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.tag == "Player")
         {
-            Debug.Log("Stop fleeing");
-            //enemyRef.flee = false;
             enemyRef.currentState = EnemyBehaviour.enemyState.Wander;
         }
     }

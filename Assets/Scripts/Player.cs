@@ -67,7 +67,6 @@ public class Player : MonoBehaviour
             GameHandler.GH.score++;
             gameObject.transform.localScale += scaleChange;
 
-            //TODO: THE BIGGER THE PLAYER THE LESS IS SPEED PENALTY
             if (speed > 0)
                 speed -= speed_penalty;
 

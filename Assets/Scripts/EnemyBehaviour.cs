@@ -15,7 +15,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     // Logic
     public GameObject target;
-    //public bool flee;
 
     public enum enemyState
     {
@@ -26,7 +25,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Start()
     {
-        // TODO: FIX IT, SO IT WOULD BE RANDOM EVERY CALL
         randomPos = new Vector3(Random.Range(-40f, 40f), Random.Range(-40f, 40f), 0f);
     }
 
@@ -35,26 +33,19 @@ public class EnemyBehaviour : MonoBehaviour
         if (target == null)
         {
             ChangeState(enemyState.Wander);
-
         } 
-        
-        /*else
-        {
-            if (!flee)
-            {
-                ChangeState(enemyState.Chase);
-            }
-            else
-            {
-                ChangeState(enemyState.Flee);
-            }
-        }*/
 
         switch (currentState)
         {
             case enemyState.Wander:
             {
                     dir = randomPos - transform.position;
+
+                    if(dir.magnitude < 5)
+                    {
+                        randomPos = new Vector3(Random.Range(-40f, 40f), Random.Range(-40f, 40f), 0f);
+                    }
+
                     break;
             }
             case enemyState.Chase:
@@ -65,7 +56,6 @@ public class EnemyBehaviour : MonoBehaviour
                     {
                         if(score < GameHandler.GH.score)
                         {
-                            Debug.Log("UBEGAEM");
                             ChangeState(enemyState.Flee);
                         }
                     }
@@ -74,7 +64,6 @@ public class EnemyBehaviour : MonoBehaviour
             }
             case enemyState.Flee:
             {
-                    Debug.Log("Start Fleeing");
                     dir = -(target.transform.position - transform.position);
 
                     if (target.tag == "Player")
@@ -82,7 +71,6 @@ public class EnemyBehaviour : MonoBehaviour
                         if (score > GameHandler.GH.score)
                         {
                             ChangeState(enemyState.Chase);
-                            Debug.Log("NAPADAEM");
                         }
                     }
 
@@ -103,20 +91,23 @@ public class EnemyBehaviour : MonoBehaviour
             gameObject.transform.localScale += scaleChange;
             speed -= 0.02f;
         }
+
+        if (collision.transform.tag == "Enemy")
+        {
+
+            if (score > collision.gameObject.GetComponent<EnemyBehaviour>().score)
+            {
+                Destroy(collision.gameObject);
+            }
+            else if (score < collision.gameObject.GetComponent<EnemyBehaviour>().score)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     public void ChangeState(enemyState _state)
     {
         currentState = _state;
     }
-
-    // Flee for only 5 seconds then return to normal
-    /*IEnumerator Fleeing()
-    {
-        /*yield return new WaitForSeconds(5f);
-        flee = false;
-        target = null;
-    }*/
-
-
 }
