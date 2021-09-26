@@ -15,12 +15,14 @@ public class EnemyBehaviour : MonoBehaviour
 
     // Logic
     public GameObject target;
+    //public bool flee;
+
     public enum enemyState
     {
         Wander, Chase, Flee
     }
 
-    private enemyState currentState;
+    public enemyState currentState;
 
     void Start()
     {
@@ -33,12 +35,20 @@ public class EnemyBehaviour : MonoBehaviour
         if (target == null)
         {
             ChangeState(enemyState.Wander);
-        }
 
-        if (target != null)
+        } 
+        
+        /*else
         {
-            ChangeState(enemyState.Chase);
-        }
+            if (!flee)
+            {
+                ChangeState(enemyState.Chase);
+            }
+            else
+            {
+                ChangeState(enemyState.Flee);
+            }
+        }*/
 
         switch (currentState)
         {
@@ -50,6 +60,32 @@ public class EnemyBehaviour : MonoBehaviour
             case enemyState.Chase:
             {
                     dir = target.transform.position - transform.position;
+                    
+                    if(target.tag == "Player")
+                    {
+                        if(score < GameHandler.GH.score)
+                        {
+                            Debug.Log("UBEGAEM");
+                            ChangeState(enemyState.Flee);
+                        }
+                    }
+
+                    break;
+            }
+            case enemyState.Flee:
+            {
+                    Debug.Log("Start Fleeing");
+                    dir = -(target.transform.position - transform.position);
+
+                    if (target.tag == "Player")
+                    {
+                        if (score > GameHandler.GH.score)
+                        {
+                            ChangeState(enemyState.Chase);
+                            Debug.Log("NAPADAEM");
+                        }
+                    }
+
                     break;
             }
         }
@@ -73,4 +109,14 @@ public class EnemyBehaviour : MonoBehaviour
     {
         currentState = _state;
     }
+
+    // Flee for only 5 seconds then return to normal
+    /*IEnumerator Fleeing()
+    {
+        /*yield return new WaitForSeconds(5f);
+        flee = false;
+        target = null;
+    }*/
+
+
 }
