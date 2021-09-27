@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FoodSpawner : MonoBehaviour
@@ -10,12 +8,6 @@ public class FoodSpawner : MonoBehaviour
     {
         GameHandler.GH.audioMan.Play("Game");
         Spawn(2000);
-    }
-
-
-    void Update()
-    {
-        
     }
 
     // Spawning a number of enemies

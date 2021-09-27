@@ -21,10 +21,9 @@ public class menu : MonoBehaviour
     // UI
     public GameObject mainMenu;
     public GameObject options;
-
     public Slider volume_slider;
 
-    // Display
+    // Color Display
     public RawImage display;
     private List<Color> colors = new List<Color>();
     private int color_selection;
@@ -52,21 +51,25 @@ public class menu : MonoBehaviour
 
     void Update()
     {
+        // Synchronize the selected options with overall parameters
         GameHandler.GH.overall_volume = volume_slider.value;
         GameHandler.GH.audioMan.ChangeVolume("MainMenu", GameHandler.GH.overall_volume);
     }
 
+    // Load "Game Scene"
     void PlayingScene()
     {
         SceneManager.LoadScene("game");
     }
 
+    // Change appearance on the screen to show options
     void OptionsScene()
     {
         mainMenu.SetActive(false);
         options.SetActive(true);
     }
 
+    // The Options "Back" button functionallity 
     void LoadMenu()
     {
         mainMenu.SetActive(true);
@@ -75,13 +78,14 @@ public class menu : MonoBehaviour
         GameHandler.GH.player_color = display.color;
     }
 
+    // Mute button
     void Mute()
     {
         GameHandler.GH.audioMan.ChangeVolume("MainMenu", 0f);
     }
 
-    #region Color Selection
     // Color selection
+    #region Color Selection
 
     // Cycle colours backwards
     void PreviousOption()
@@ -106,6 +110,7 @@ public class menu : MonoBehaviour
         display.color = colors[color_selection];
     }
 
+    // Fill the array with colors to choose
     void LoadColors()
     {
         colors.Add(Color.white);

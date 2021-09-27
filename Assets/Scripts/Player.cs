@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        // Setting up the default color for player
+        // Setting up the default color for player (Debug Purposes)
         GameHandler.GH.player_color = Color.red;
 
         // Set the player color as the one chosen on the menu
@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+
         Vector3 pos = transform.position;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -56,6 +57,7 @@ public class Player : MonoBehaviour
             } else if (GameHandler.GH.score < collision.gameObject.GetComponent<EnemyBehaviour>().score)
             {
                 Destroy(gameObject);
+                GameHandler.GH.gameOver.DeathScreen();
             }
         }
 

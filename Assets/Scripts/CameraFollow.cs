@@ -15,17 +15,23 @@ public class CameraFollow : MonoBehaviour
     }
     void Update()
     {
-        // If the scale of player has changed, increase the height of the camera
-        if (current_scale != target.localScale.z)
+        if (target != null)
         {
-            offset.z -= target.localScale.z - current_scale;
-            current_scale = target.localScale.z;
+            // If the scale of player has changed, increase the height of the camera
+            if (current_scale != target.localScale.z)
+            {
+                offset.z -= target.localScale.z - current_scale;
+                current_scale = target.localScale.z;
+            }
         }
     }
 
     // Late update to make camera movement smooth
     void LateUpdate()
     {
-        transform.position = new Vector3(target.position.x, target.position.y, offset.z);
+        if (target != null)
+        {
+            transform.position = new Vector3(target.position.x, target.position.y, offset.z);
+        }
     }
 }

@@ -12,8 +12,10 @@ public class EnemyDetection : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        // Checking collision with the food
         if (collision.transform.tag == "Food")
         {
+            // If current target is null, then set the food as target, and change state to Chase
             if (enemyRef.target == null)
             {
                 enemyRef.target = collision.gameObject;
