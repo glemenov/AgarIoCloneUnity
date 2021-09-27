@@ -91,7 +91,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         // Move every frame
         transform.position += dir.normalized * speed * Time.deltaTime;
-
+        Limitations();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
