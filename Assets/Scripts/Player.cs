@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         // Setting up the default color for player (Debug Purposes)
-        GameHandler.GH.player_color = Color.red;
+        //GameHandler.GH.player_color = Color.red;
 
         // Set the player color as the one chosen on the menu
         gameObject.GetComponent<SpriteRenderer>().color = GameHandler.GH.player_color;
