@@ -18,11 +18,15 @@ public class Player : MonoBehaviour
 
         // Set the player color as the one chosen on the menu
         gameObject.GetComponent<SpriteRenderer>().color = GameHandler.GH.player_color;
+
+        if (GameHandler.GH.mute)
+        {
+            GameHandler.GH.audioMan.Stop("Game");
+        }
     }
 
     void Update()
     {
-
         Vector3 pos = transform.position;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -41,6 +45,21 @@ public class Player : MonoBehaviour
         }
 
         transform.position = pos;
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!GameHandler.GH.UImanager.pause)
+            {
+                GameHandler.GH.UImanager.pause = true;
+
+            } else
+            {
+                GameHandler.GH.UImanager.pause = false;
+            }
+
+            GameHandler.GH.UImanager.DeathScreen();
+
+        }
     }
 
     // Collision handler with enemies
@@ -57,7 +76,7 @@ public class Player : MonoBehaviour
             } else if (GameHandler.GH.score < collision.gameObject.GetComponent<EnemyBehaviour>().score)
             {
                 Destroy(gameObject);
-                GameHandler.GH.gameOver.DeathScreen();
+                GameHandler.GH.UImanager.DeathScreen();
             }
         }
 

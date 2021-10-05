@@ -42,6 +42,7 @@ public class menu : MonoBehaviour
         scroll_right.onClick.AddListener(NextOption);
 
         // MainMenu audio
+        GameHandler.GH.mute = false;
         GameHandler.GH.audioMan.Play("MainMenu");
 
         LoadColors();
@@ -81,7 +82,16 @@ public class menu : MonoBehaviour
     // Mute button
     void Mute()
     {
-        GameHandler.GH.audioMan.ChangeVolume("MainMenu", 0f);
+        if(!GameHandler.GH.mute)
+        {
+            GameHandler.GH.mute = true;
+            GameHandler.GH.audioMan.Stop("MainMenu");
+        }
+        else
+        {
+            GameHandler.GH.mute = false;
+            GameHandler.GH.audioMan.Play("MainMenu");
+        }
     }
 
     // Color selection

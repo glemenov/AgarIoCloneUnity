@@ -7,7 +7,8 @@ public class FoodSpawner : MonoBehaviour
     void Start()
     {
         GameHandler.GH.audioMan.Play("Game");
-        Spawn(2000);
+        GameHandler.GH.food = 2000;
+        Spawn(GameHandler.GH.food);
     }
 
     // Spawning a number of enemies

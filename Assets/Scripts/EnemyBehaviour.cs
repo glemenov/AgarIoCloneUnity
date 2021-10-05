@@ -89,9 +89,10 @@ public class EnemyBehaviour : MonoBehaviour
             }
         }
 
+        Limitations();
         // Move every frame
         transform.position += dir.normalized * speed * Time.deltaTime;
-        Limitations();
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -132,7 +133,9 @@ public class EnemyBehaviour : MonoBehaviour
     {
         // Enemy limitations
         pos.z = 0f;
-        pos.x = Mathf.Clamp(pos.x, -45f, 45f);
-        pos.y = Mathf.Clamp(pos.y, -45f, 45f);
+        pos.x = Mathf.Clamp(pos.x, -40f, 40f);
+        pos.y = Mathf.Clamp(pos.y, -40f, 40f);
+
+        transform.position = pos;
     }
 }

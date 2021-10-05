@@ -40,4 +40,6 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == _name);
         s.source.volume = _volume;
     }
+
+    //StopALL
 }

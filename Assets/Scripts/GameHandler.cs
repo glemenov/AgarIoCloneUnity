@@ -7,10 +7,14 @@ public class GameHandler
 {
     public int score;
     //public int enemies;
+    public int food;
 
+    // Audio
     public AudioManager audioMan;
-    public GameOver gameOver;
+    public bool mute;
     public float overall_volume;
+
+    public UIController UImanager;
 
     public Color player_color;
 
